@@ -23,7 +23,8 @@ import {
   AddIcon,
   WarningTwoIcon,
 } from "@chakra-ui/icons";
-// import { ConnectButton } from "@rainbow-me/rainbowkit";
+import { ConnectKitButton } from "connectkit";
+
 import Image from "next/image";
 // import { ethers } from "ethers";
 import { Link } from "@chakra-ui/next-js";
@@ -123,14 +124,9 @@ export default function NavBar() {
               </>
               {/* )} */}
 
-              {/* <HStack>
-                <ConnectButton
-                  accountStatus={{
-                    smallScreen: "avatar",
-                    largeScreen: "full",
-                  }}
-                />
-              </HStack> */}
+              <HStack>
+                <ConnectKitButton />
+              </HStack>
             </div>
           </Flex>
         </Flex>
