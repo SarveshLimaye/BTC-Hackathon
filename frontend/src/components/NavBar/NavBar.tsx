@@ -17,6 +17,7 @@ import {
   Heading,
 } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
+import { useAccount } from "wagmi";
 import {
   HamburgerIcon,
   CloseIcon,
@@ -34,6 +35,7 @@ import { Link } from "@chakra-ui/next-js";
 export default function NavBar() {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { data: session, status } = useSession();
+  const { isConnected } = useAccount();
   //   const account = useAccount();
 
   return (
@@ -72,59 +74,59 @@ export default function NavBar() {
           </HStack>
           <Flex alignItems={"center"}>
             <div style={{ display: "flex" }}>
-              {/* {account.isConnected && ( */}
-              <>
-                <HStack
-                  as={"nav"}
-                  spacing={4}
-                  display={{ base: "none", md: "flex" }}
-                  marginRight={4}
-                >
-                  <Link href="/register">
-                    <Button w="full" variant="ghost">
-                      Register
-                    </Button>
-                  </Link>
-                </HStack>
-                <HStack
-                  as={"nav"}
-                  spacing={4}
-                  display={{ base: "none", md: "flex" }}
-                  marginRight={4}
-                >
-                  <Link href="/create-dao">
-                    <Button w="full" variant="ghost">
-                      Create DAO
-                    </Button>
-                  </Link>
-                </HStack>
-                <HStack
-                  as={"nav"}
-                  spacing={4}
-                  display={{ base: "none", md: "flex" }}
-                  marginRight={4}
-                >
-                  <Link href="/explore">
-                    <Button w="full" variant="ghost">
-                      Explore
-                    </Button>
-                  </Link>
-                </HStack>
+              {isConnected && (
+                <>
+                  <HStack
+                    as={"nav"}
+                    spacing={4}
+                    display={{ base: "none", md: "flex" }}
+                    marginRight={4}
+                  >
+                    <Link href="/register">
+                      <Button w="full" variant="ghost">
+                        Register
+                      </Button>
+                    </Link>
+                  </HStack>
+                  <HStack
+                    as={"nav"}
+                    spacing={4}
+                    display={{ base: "none", md: "flex" }}
+                    marginRight={4}
+                  >
+                    <Link href="/create-dao">
+                      <Button w="full" variant="ghost">
+                        Create DAO
+                      </Button>
+                    </Link>
+                  </HStack>
+                  <HStack
+                    as={"nav"}
+                    spacing={4}
+                    display={{ base: "none", md: "flex" }}
+                    marginRight={4}
+                  >
+                    <Link href="/explore">
+                      <Button w="full" variant="ghost">
+                        Explore
+                      </Button>
+                    </Link>
+                  </HStack>
 
-                <HStack
-                  as={"nav"}
-                  spacing={4}
-                  display={{ base: "none", md: "flex" }}
-                  marginRight={4}
-                >
-                  <Link href="/profile">
-                    <Button w="full" variant="ghost">
-                      Profile
-                    </Button>
-                  </Link>
-                </HStack>
-              </>
-              {/* )} */}
+                  <HStack
+                    as={"nav"}
+                    spacing={4}
+                    display={{ base: "none", md: "flex" }}
+                    marginRight={4}
+                  >
+                    <Link href="/profile">
+                      <Button w="full" variant="ghost">
+                        Profile
+                      </Button>
+                    </Link>
+                  </HStack>
+                </>
+              )}
 
               <HStack>
                 <ConnectKitButton />
