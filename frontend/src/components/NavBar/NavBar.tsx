@@ -24,6 +24,7 @@ import {
   WarningTwoIcon,
 } from "@chakra-ui/icons";
 import { ConnectKitButton } from "connectkit";
+import { signIn, signOut, useSession } from "next-auth/react";
 
 import Image from "next/image";
 // import { ethers } from "ethers";
@@ -32,6 +33,7 @@ import { Link } from "@chakra-ui/next-js";
 
 export default function NavBar() {
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const { data: session, status } = useSession();
   //   const account = useAccount();
 
   return (
@@ -126,6 +128,27 @@ export default function NavBar() {
 
               <HStack>
                 <ConnectKitButton />
+                {session?.user ? (
+                  <Button
+                    colorScheme="red"
+                    onClick={() => {
+                      signOut();
+                    }}
+                  >
+                    Disconnect
+                  </Button>
+                ) : (
+                  <Button
+                    colorScheme="red"
+                    onClick={async () => {
+                      signIn("discord", {
+                        callbackUrl: `${window.location.origin}/register`,
+                      });
+                    }}
+                  >
+                    Connect Discord
+                  </Button>
+                )}
               </HStack>
             </div>
           </Flex>

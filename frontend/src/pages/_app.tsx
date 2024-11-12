@@ -6,6 +6,8 @@ import { WagmiProvider, createConfig, http } from "wagmi";
 import { rootstockTestnet } from "wagmi/chains";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ConnectKitProvider, getDefaultConfig } from "connectkit";
+import { SessionProvider } from "next-auth/react";
+import type { Session } from "next-auth";
 const connectkitConfig = createConfig(
   getDefaultConfig({
     chains: [rootstockTestnet],
@@ -53,27 +55,32 @@ const config = {
 
 const theme = extendTheme({ colors, config });
 
-export default function App({ Component, pageProps }: AppProps) {
+export default function App({
+  Component,
+  pageProps: { session, ...pageProps },
+}: AppProps) {
   return (
     <>
-      <ChakraProvider theme={theme}>
-        <WagmiProvider config={connectkitConfig}>
-          <QueryClientProvider client={queryClient}>
-            <ConnectKitProvider>
-              <div
-                style={{
-                  display: "flex",
-                  flexDirection: "column",
-                  minHeight: "100vh",
-                }}
-              >
-                <Navbar />
-                <Component {...pageProps} />{" "}
-              </div>
-            </ConnectKitProvider>
-          </QueryClientProvider>
-        </WagmiProvider>
-      </ChakraProvider>
+      <SessionProvider session={session}>
+        <ChakraProvider theme={theme}>
+          <WagmiProvider config={connectkitConfig}>
+            <QueryClientProvider client={queryClient}>
+              <ConnectKitProvider>
+                <div
+                  style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    minHeight: "100vh",
+                  }}
+                >
+                  <Navbar />
+                  <Component {...pageProps} />{" "}
+                </div>
+              </ConnectKitProvider>
+            </QueryClientProvider>
+          </WagmiProvider>
+        </ChakraProvider>
+      </SessionProvider>
     </>
   );
 }
