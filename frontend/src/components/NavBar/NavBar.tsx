@@ -67,7 +67,7 @@ export default function NavBar() {
                 width={170}
                 height={300}
               /> */}
-              BTC Hackathon
+              BitGovern
             </Link>
           </HStack>
           <Flex alignItems={"center"}>

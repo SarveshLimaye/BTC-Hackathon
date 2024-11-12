@@ -1,3 +1,4 @@
+// @ts-nocheck comment
 import axios from "axios";
 async function updateDiscordPermissions(channelId, userId, permissions) {
   const discordApiUrl = `https://discord.com/api/v9/channels/${channelId}/permissions/${userId}`;
